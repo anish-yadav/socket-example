@@ -9,15 +9,15 @@ socket.on('connect', function(){
 
 socket.on('message', function(message){
   var timeStampMoment = moment.utc(message.timeStamp);
-  var $message = jQuery('.message');
+  //var $message = jQuery('.message');
 
   console.log("New message is "+message.text);
-  $message.append('<p><strong>'+message.name+' '+timeStampMoment.local().format('hh:mm a')+'</strong></p>');
-  $message.append('<p>'+message.text+'</p>');
+  $('.message').append('<p><strong>'+message.name+' '+timeStampMoment.local().format('hh:mm a')+'</strong></p>');
+  $('.message').append('<p>'+message.text+'</p>');
 });
 
 
-var $form = jQuery('#message-form');
+var $form = $('#message-form');
 
 $form.on('submit', function (event){
   event.preventDefault();
