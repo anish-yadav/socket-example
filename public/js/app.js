@@ -6,7 +6,7 @@ console.log(name + ' Joined '+room);
 $('#room').text(room);
 
 socket.on('connect', function(){
-  console.log('Connnected to the socket server');
+//  console.log('Connnected to the socket server');
   socket.emit('joinRoom', {
     name: name,
     room: room
