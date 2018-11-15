@@ -13,12 +13,25 @@ io.on('connection', function (socket) {
 
   console.log('connected user via socket.io');
 
+  socket.on('disconnect', function(){
+    var userId = clientInfo[socket.id];
+    if (typeof clientInfo[socket.id] !== 'undefined') {
+      socket.leave(userId.room);
+      io.to(userId.room).emit('message',{
+        name: ' System',
+        text: userId.name + ' left ',
+        timeStamp: moment().valueOf()
+      });
+      delete clientInfo[socket.id];
+    }
+  });
+
    socket.on('joinRoom', function(req){
      clientInfo[socket.id] = req;
      socket.join(req.room);
      socket.broadcast.to(req.room).emit('message',{
        name:'System',
-       text:req.name + 'joined !',
+       text:req.name + ' joined !',
        timeStamp: moment().valueOf()
      })
    });
@@ -26,7 +39,7 @@ io.on('connection', function (socket) {
       socket.on('message', function (message) {
         console.log('Message Received :'+message.text);
 
-       message.timestamp = moment().valueOf();
+       message.timesTamp = moment().valueOf();
 
         io.to(clientInfo[socket.id].room).emit('message',message);
       });
