@@ -2,7 +2,7 @@ var name = getQuerVariable('name') || 'Anonymous';
 var  room = getQuerVariable('room');
 var socket = io();
 
-console.log(name + ' Joined '+room);
+//console.log(name + ' Joined '+room);
 $('#room').text(room);
 
 socket.on('connect', function(){
@@ -17,7 +17,7 @@ socket.on('message', function(message){
   var timeStampMoment = moment.utc(message.timeStamp);
   //var $message = jQuery('.message');
 
-  console.log("New message is "+message.text);
+  //console.log("New message is "+message.text);
   $('.message').append('<p><strong>'+message.name+' '+timeStampMoment.local().format('hh:mm a')+'</strong></p>');
   $('.message').append('<p>'+message.text+'</p>');
 });
